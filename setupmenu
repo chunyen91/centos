@@ -1,0 +1,73 @@
+/menu
+
+# download script
+cd
+wget -O /usr/bin/user-trial "http://hqpanel.me/centos/user-trial"
+wget -O /usr/bin/rubah-tanggal "http://hqpanel.me/centos/rubah-tanggal"
+wget -O /usr/bin/next "http://hqpanel.me/centos/next"
+wget -O /usr/bin/auto-reboot "http://hqpanel.me/centos/auto-reboot"
+wget -O /usr/bin/bench-network "http://hqpanel.me/centos/bench-network"
+wget -O /usr/bin/speedtest "http://hqpanel.me/centos/speedtest"
+wget -O /usr/bin/ps-mem "http://hqpanel.me/centos/ps-mem"
+wget -O /usr/bin/autokill "http://hqpanel.me/centos/autokill"
+wget -O /usr/bin/dropmon "http://hqpanel.me/centos/dropmon"
+wget -O /usr/bin/menu "http://hqpanel.me/centos/menu"
+wget -O /usr/bin/user-active-list "http://hqpanel.me/centos/user-active-list"
+wget -O /usr/bin/user-add "http://hqpanel.me/centos/user-add"
+wget -O /usr/bin/user-add-pptp "http://hqpanel.me/centos/user-add-pptp"
+wget -O /usr/bin/user-del "http://hqpanel.me/centos/user-del"
+wget -O /usr/bin/disable-user-expire "http://hqpanel.me/centos/disable-user-expire"
+wget -O /usr/bin/delete-user-expire "http://hqpanel.me/centos/delete-user-expire"
+wget -O /usr/bin/banned-user "http://hqpanel.me/centos/banned-user"
+wget -O /usr/bin/unbanned-user "http://hqpanel.me/centos/unbanned-user"
+wget -O /usr/bin/user-expire-list "http://hqpanel.me/centos/user-expire-list"
+wget -O /usr/bin/user-gen "http://hqpanel.me/centos/user-gen"
+wget -O /usr/bin/userlimit.sh "http://hqpanel.me/centos/userlimit.sh"
+#wget -O /usr/bin/userlimitssh.sh "http://hqpanel.me/centos/userlimitssh.sh"
+wget -O /usr/bin/user-list "http://hqpanel.me/centos/user-list"
+wget -O /usr/bin/user-login "http://hqpanel.me/centos/user-login"
+wget -O /usr/bin/user-pass "http://hqpanel.me/centos/user-pass"
+wget -O /usr/bin/user-renew "http://hqpanel.me/centos/user-renew"
+wget -O /usr/bin/clearcache.sh "http://hqpanel.me/centos/clearcache.sh"
+wget -O /usr/bin/bannermenu "http://hqpanel.me/centos/bannermenu"
+wget -O /usr/bin/menu-update-script-vps.sh "http://hqpanel.me/centos/menu-update-script-vps.sh"
+cd
+# cronjob
+echo "*/30 * * * * root service dropbear restart" > /etc/cron.d/dropbear
+echo "00 23 * * * root /usr/bin/disable-user-expire" > /etc/cron.d/disable-user-expire
+echo "0 */12 * * * root /sbin/reboot" > /etc/cron.d/reboot
+echo "00 01 * * * root echo 3 > /proc/sys/vm/drop_caches && swapoff -a && swapon -a" > /etc/cron.d/clearcacheram3swap
+echo "*/3 * * * * root /usr/bin/clearcache.sh" > /etc/cron.d/clearcache1
+
+cd
+chmod +x /usr/bin/user-trial
+chmod +x /usr/bin/rubah-tanggal
+chmod +x /usr/bin/rubah-port
+chmod +x /usr/bin/next
+chmod +x /usr/bin/auto-reboot
+chmod +x /usr/bin/bench-network
+chmod +x /usr/bin/speedtest
+chmod +x /usr/bin/ps-mem
+#chmod +x /usr/bin/autokill
+chmod +x /usr/bin/dropmon
+chmod +x /usr/bin/menu
+chmod +x /usr/bin/user-active-list
+chmod +x /usr/bin/user-add
+chmod +x /usr/bin/user-add-pptp
+chmod +x /usr/bin/user-del
+chmod +x /usr/bin/disable-user-expire
+chmod +x /usr/bin/delete-user-expire
+chmod +x /usr/bin/banned-user
+chmod +x /usr/bin/unbanned-user
+chmod +x /usr/bin/user-expire-list
+chmod +x /usr/bin/user-gen
+chmod +x /usr/bin/userlimit.sh
+chmod +x /usr/bin/userlimitssh.sh
+chmod +x /usr/bin/user-list
+chmod +x /usr/bin/user-login
+chmod +x /usr/bin/user-pass
+chmod +x /usr/bin/user-renew
+chmod +x /usr/bin/clearcache.sh
+chmod +x /usr/bin/bannermenu
+chmod +x /usr/bin/menu-update-script-vps.sh
+cd
