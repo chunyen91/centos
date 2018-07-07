@@ -1,0 +1,272 @@
+<?php
+session_start();
+require("../mainconfig.php");
+$msg_type = "nothing";
+
+if (isset($_SESSION['user'])) {
+	$sess_username = $_SESSION['user']['username'];
+	$check_user = mysqli_query($db, "SELECT * FROM users WHERE username = '$sess_username'");
+	$data_user = mysqli_fetch_assoc($check_user);
+	if (mysqli_num_rows($check_user) == 0) {
+		header("Location: ".$cfg_baseurl."logout.php");
+	} else if ($data_user['status'] == "Suspended") {
+		header("Location: ".$cfg_baseurl."logout.php");
+	} else if ($data_user['level'] != "Developers") {
+		header("Location: ".$cfg_baseurl);
+	} else {
+	    if (isset($_POST['add'])) {
+			$post_id = $_POST['id'];
+			$post_code = $_POST['code'];
+			$post_cat = $_POST['cat'];
+
+			$checkdb_cat = mysqli_query($db, "SELECT * FROM service_cat WHERE id = '$post_id'");
+			$datadb_cat = mysqli_fetch_assoc($checkdb_service);
+			if (empty($post_id) || empty($post_code) || empty($post_cat)) {
+				$msg_type = "error";
+				$msg_content = "<b>Failed:</b> Please fill all inputs.";
+			} else if (mysqli_num_rows($datadb_cat) > 0) {
+				$msg_type = "error";
+				$msg_content = "<b>Failed:</b> Category ID $post_id already exist in database.";
+			} else {
+				$insert_provider = mysqli_query($db, "INSERT INTO service_cat (id, code, name, status) VALUES ('$post_id', '$post_code', '$post_cat', 'Active')");
+				if ($insert_provider == TRUE) {
+					$msg_type = "success";
+					$msg_content = "<b>Success:</b> Category successfully added.<br /><b>Category ID:</b> $post_id<br /><b>Code:</b> $post_code<br /><b>Category Name:</b> $post_cat";
+				} else {
+					$msg_type = "error";
+					$msg_content = "<b>Failed:</b> System Error.";
+				}
+			}
+		} else if (isset($_POST['edit'])) {
+	                $post_id = $_GET['provider_id'];
+					$post_code = $_POST['code'];
+					$post_cat = $_POST['cat'];
+					$post_status = $_POST['status'];
+					if (empty($post_code) || empty($post_cat) || empty($post_status)) {
+						$msg_type = "error";
+						$msg_content = "<b>Failed:</b> Please input all fills.";
+					} else {
+						$update_provider = mysqli_query($db, "UPDATE service_cat SET name = '$post_cat', code = '$post_code', status = '$post_status' WHERE id = '$post_id'");
+						if ($update_provider == TRUE) {
+							$msg_type = "success";
+							$msg_content = "<b>Berhasil:</b> Kategori berhasil diubah.<br /><b>ID Kategori:</b> $post_id<br /><b>Code:</b> $post_code<br /><b>Kategori:</b> $post_cat<br /><b>Status:</b> $post_status";
+						} else {
+							$msg_type = "error";
+							$msg_content = "<b>Failed:</b> Error system.";
+						}
+					}
+		} else if (isset($_POST['delete'])) {
+			$post_id = $_GET['provider_id'];
+			$checkdb_news = mysqli_query($db, "SELECT * FROM service_cat WHERE id = '$post_id'");
+			if (mysqli_num_rows($checkdb_news) == 0) {
+				$msg_type = "error";
+				$msg_content = "<b>Gagal:</b> Kategori tidak ditemukan.";
+			} else {
+				$delete_news = mysqli_query($db, "DELETE FROM service_cat WHERE id = '$post_id'");
+				if ($delete_news == TRUE) {
+					$msg_type = "success";
+					$msg_content = "<b>Berhasil:</b> Kategori dihapus.";
+				}
+			}
+		}
+
+	include("../lib/header.php");
+?>
+
+							<div class="row">
+							    <!-- sample modal content -->
+                            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h4 class="modal-title" id="custom-width-modalLabel"><i class="fa fa-plus"></i> Tambah Kategori</h4>
+                                        </div>
+                                        <div class="modal-body">
+										<form class="form-horizontal" role="form" method="POST">
+											
+											<div class="form-group">
+												<label class="col-md-2 control-label">ID</label>
+												<div class="col-md-10">
+													<input type="number" name="id" class="form-control" placeholder="example : 1">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label">Code</label>
+												<div class="col-md-10">
+													<input type="text" name="code" class="form-control" placeholder="example : SM/PR/OTHER">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label">Kategori</label>
+												<div class="col-md-10">
+													<input type="text" name="cat" class="form-control" placeholder="example : Instagram Followers">
+												</div>
+											</div>
+                                        <div class="modal-footer">
+                                            <div class="pull-left">
+                                            <a href="<?php echo $cfg_baseurl; ?>admin/users.php" class="btn btn-info btn-bordered waves-effect w-md waves-light"><i class="fa fa-arrow-left"></i> Kembali</a>
+                                            </div>
+                                            <button type="reset" class="btn btn-warning waves-effect" data-dismiss="modal"><i class="fa fa-repeat"></i> Reset</button>
+                                            <button type="submit" class="btn btn-success btn-bordered waves-effect w-md waves-light" name="add"><i class="fa fa-plus"></i> Tambah</button>
+                                        </div>
+                                        </form>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+                            <div class="col-lg-12">
+                                <div class="box box-success collapsed-box">
+                                    <div class="box-header with-border">
+                                      <h3 class="box-title"><i class="fa fa-info-circle"></i> Informasi</h3>
+                                      <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                      </div>
+                                    </div>
+                                    <div class="box-body">
+										    <div class="alert alert-success">
+										        Informasi:
+										        <ul>
+										            <li>IG: Instagram Followers (Not Warranty)</li>
+										            <li>IL: Instagram Likes Worldwide</li>
+										            <li>IV: Instagram Views / Video Live</li>
+										            <li>IGL: Instagram Like</li>
+										            <li>TW: Twitter</li>
+										            <li>FB: Facebook page Likes</li>
+										            <li>YT: Youtube Like / Subscribe / Comment</li>
+										            <li>SC: SoundCloud</li>
+										            <li>SP: Spotify</li>
+										            <li>VN: Vine</li>
+										            <li>MY: Musical.ly</li>
+										            <li>TG: Telegram</li>
+										            <li>PT: Pinterest</li>
+										            <li>GL: Google</li>
+										            <li>IA: Instagram Auto Like/View/Comments/Impression</li>
+										            <li>IS: Instagram Follower (Warranty)</li>
+										            <li>IAL: Instagram Auto Like</li>
+										            <li>ILN: Instagram Like Indonesia ML</li>
+										            <li>IGM: Instagram Mention</li>
+										            <li>IGS: Instagram Story/Impression/Saves</li>
+										            <li>FBC: Facebook Post Likes/Comments/Share</li>
+										            <li>YTV: Youtube Views/Live streaming/Dailymotion</li>
+										            <li>YBT: Website Traffic1</li>
+										            <li>FBW: Facebook Website Likes</li>
+										            <li>IGS: Instagram Story Views [10k]</li>
+										            <li>FBW: Facebook Website Likes</li>
+										            <li>PR: PRMOTE NECROBEEE [10k]</li>
+										        </ul>
+										    </div>
+                                        </div>
+                                    </div>
+                                </div>
+								<div class="col-lg-12">
+                           <div class="box box-success">
+                                    <div class="box-header with-border">
+                                      <h3 class="box-title"><i class="fa fa-list"></i> Daftar Kategori</h3>
+                                      <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                        </button>
+                                      </div>
+                                    </div>
+                                    <div class="box-body">
+										<?php 
+										if ($msg_type == "success") {
+										?>
+										<div class="alert alert-success">
+											<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+											<i class="fa fa-check-circle"></i>
+											<?php echo $msg_content; ?>
+										</div>
+										<?php
+										} else if ($msg_type == "error") {
+										?>
+										<div class="alert alert-danger">
+											<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+											<i class="fa fa-times-circle"></i>
+											<?php echo $msg_content; ?>
+										</div>
+										<?php
+										}
+										?>
+										<div class="col-md-6">
+											<button data-toggle="modal" data-target="#myModal" class="btn btn-info"><i class="fa fa-plus"></i> Tambah</button>
+										</div>
+										<div class="col-md-6">
+										</div>
+										<br />
+										<br />
+										<div class="clearfix"></div>
+										<br />
+										<div class="table-responsive">
+                                            <table id="example2" class="table table-bordered table-hover">
+												<thead>
+													<tr>
+														<th>ID</th>
+														<th>Code</th>
+														<th>Kategori</th>
+														<th>Status</th>
+														<th>Aksi</th>
+													</tr>
+												</thead>
+												<tbody>
+												<?php
+// start paging config
+$query_list = "SELECT * FROM service_cat ORDER BY id DESC"; // edit
+$records_per_page = 10; // edit
+
+$starting_position = 0;
+if(isset($_GET["page_no"])) {
+	$starting_position = ($_GET["page_no"]-1) * $records_per_page;
+}
+$new_query = $query_list." LIMIT $starting_position, $records_per_page";
+$new_query = mysqli_query($db, $query_list);
+// end paging config
+												$no = 1;
+												while ($data_show = mysqli_fetch_assoc($new_query)) {
+												?>
+													<tr>
+													<form action="<?php echo $_SERVER['PHP_SELF']; ?>?provider_id=<?php echo $data_show['id']; ?>" class="form-inline" role="form" method="POST">
+														<td><input type="text" class="form-control" style="width: 50px;" name="id" value="<?php echo $data_show['id']; ?>"></td>
+														<td><input type="text" class="form-control" name="code" value="<?php echo $data_show['code']; ?>"></td>
+														<td><input type="text" class="form-control" name="cat" value="<?php echo $data_show['name']; ?>" style="width: 800px;"></td>
+														<td>
+													<select class="form-control" name="status">
+												    <option value="<?php echo $data_show['status']; ?>"><?php echo $data_show['status']; ?></option>
+													<option value="Active">Active</option>
+													<option value="Not active">Not active</option>
+												</select>
+														</td>
+														<td align="center">
+														<button type="submit" name="edit" class="btn btn-xs btn-warning"><i class="fa fa-edit" title="Edit"></i></button>
+														<button type="submit" name="delete" class="btn btn-xs btn-danger"><i class="fa fa-trash" title="Hapus"></i></button>
+														</td>
+														</form>
+													</tr>
+												<?php
+												$no++;
+												}
+												?>
+										</tbody>
+										<tfoot>
+                                            <tr>
+                                                <th>ID</th>
+												<th>Code</th>
+												<th>Kategori</th>
+												<th>Status</th>
+												<th>Aksi</th>
+                                            </tr>
+                                        </tfoot>
+											</table>
+											</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- end row -->
+<?php
+	include("../lib/footer.php");
+	}
+} else {
+	header("Location: ".$cfg_baseurl);
+}
+?>
