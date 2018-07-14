@@ -1,0 +1,736 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.7
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: May 18, 2018 at 08:32 AM
+-- Server version: 10.1.31-MariaDB-cll-lve
+-- PHP Version: 5.6.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `mysosmed_db`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `balance_history`
+--
+
+CREATE TABLE `balance_history` (
+  `id` int(10) NOT NULL,
+  `username` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `action` enum('Add Balance','Cut Balance') COLLATE utf8_swedish_ci NOT NULL,
+  `quantity` int(10) NOT NULL,
+  `msg` text COLLATE utf8_swedish_ci NOT NULL,
+  `date` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `time` varchar(50) COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `berita`
+--
+
+CREATE TABLE `berita` (
+  `id` int(11) NOT NULL,
+  `isi` text NOT NULL,
+  `tanggal` date NOT NULL,
+  `jenis` enum('INFO','WARNING','UPDATE') NOT NULL,
+  `warna` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `news`
+--
+
+CREATE TABLE `news` (
+  `id` int(10) NOT NULL,
+  `date` date NOT NULL,
+  `content` text COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(10) NOT NULL,
+  `oid` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `poid` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `user` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `service` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `link` text COLLATE utf8_swedish_ci NOT NULL,
+  `quantity` int(10) NOT NULL,
+  `remains` int(10) NOT NULL,
+  `start_count` int(10) NOT NULL,
+  `price` int(10) NOT NULL,
+  `status` enum('Checking','Pending','Processing','Error','Partial','Success') COLLATE utf8_swedish_ci NOT NULL,
+  `date` date NOT NULL,
+  `provider` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `place_from` enum('WEB','API') COLLATE utf8_swedish_ci NOT NULL,
+  `notes` text COLLATE utf8_swedish_ci NOT NULL,
+  `refund` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `oid`, `poid`, `user`, `service`, `link`, `quantity`, `remains`, `start_count`, `price`, `status`, `date`, `provider`, `place_from`, `notes`, `refund`) VALUES
+(1, '9052671', '9052671', 'borneo', 'ÃƒÂ¢Ã¢â€žÂ¢Ã¢â‚¬Âº Instagram Followers Indonesia [6K] [REAL INDONESIAN ACTIVE - HQ MAX 6K]', 'Nxnx', 200, 0, 0, 8000, 'Pending', '2018-05-15', 'MANUAL', 'WEB', '', 0),
+(2, '8711587', '5767655', 'borneo', 'Instagram Likes VIP 2', 'Samreytoday_07m', 100, 0, 0, 170, 'Pending', '2018-05-15', 'JOZPEDIA', 'WEB', '', 0),
+(3, '4065100', '5795446', 'borneo', 'Instagram Followers JOZPEDIA 2', 'samreytoday_07', 300, 0, 0, 3000, 'Pending', '2018-05-15', 'JOZPEDIA', 'WEB', '', 0),
+(4, '1764015', '', 'borneo', 'Instagram Like Gratissss JOZPEDIA [MAX2K]', 'https://www.instagram.com/p/BijZE9tnw12/', 100, 0, 0, 0, 'Pending', '2018-05-15', 'JOZPEDIA', 'WEB', '', 0),
+(5, '5548315', '5554849', 'borneo', 'Instagram Likes JozPedia Termurah', 'https://www.instagram.com/p/BF1hQrwrCNH/', 20, 0, 0, 18, 'Pending', '2018-05-15', 'JOZPEDIA', 'WEB', '', 0),
+(6, '8906605', '7134038', 'samary', 'Instagram Likes JozPedia Termurah', 'Nxnxnxn', 20, 0, 0, 18, 'Pending', '2018-05-15', 'JOZPEDIA', 'WEB', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders_line`
+--
+
+CREATE TABLE `orders_line` (
+  `id` int(10) NOT NULL,
+  `oid` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `user` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `service` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `note` text COLLATE utf8_swedish_ci NOT NULL,
+  `price` double NOT NULL,
+  `status` enum('Pending','Processing','Error','Success') COLLATE utf8_swedish_ci NOT NULL,
+  `date` date NOT NULL,
+  `place_from` varchar(50) COLLATE utf8_swedish_ci NOT NULL DEFAULT 'WEB'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders_pulsa`
+--
+
+CREATE TABLE `orders_pulsa` (
+  `id` int(10) NOT NULL,
+  `oid` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `user` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `service` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `price` double NOT NULL,
+  `phone` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `status` enum('Pending','Processing','Error','Success') COLLATE utf8_swedish_ci NOT NULL,
+  `date` date NOT NULL,
+  `place_from` varchar(50) COLLATE utf8_swedish_ci NOT NULL DEFAULT 'WEB'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_history`
+--
+
+CREATE TABLE `order_history` (
+  `id` int(10) NOT NULL,
+  `order_id` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `poid` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `provider` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `buyer` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `service` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `link` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `quantity` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `price` int(10) NOT NULL,
+  `startcount` int(10) NOT NULL,
+  `remains` int(10) NOT NULL,
+  `status` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `status_refund` enum('NO','YES') COLLATE utf8_swedish_ci NOT NULL,
+  `date` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `time` varchar(50) COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `provider`
+--
+
+CREATE TABLE `provider` (
+  `id` int(10) NOT NULL,
+  `code` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `link` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `api_key` varchar(100) COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `provider`
+--
+
+INSERT INTO `provider` (`id`, `code`, `link`, `api_key`) VALUES
+(1, 'JOZPEDIA', 'http://www.jozpedia-panel.xyz/api2.php', 'rHHiUdXobpSFoWd7GTiC'),
+(2, 'JAP', 'https://sosmed989.net/api.php', 'vndwXMtnTvprH1nDs4HV');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `services`
+--
+
+CREATE TABLE `services` (
+  `id` int(10) NOT NULL,
+  `sid` int(10) NOT NULL,
+  `category` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `service` text COLLATE utf8_swedish_ci NOT NULL,
+  `note` text COLLATE utf8_swedish_ci NOT NULL,
+  `min` int(10) NOT NULL,
+  `max` int(10) NOT NULL,
+  `price` double NOT NULL,
+  `status` enum('Active','Not active') COLLATE utf8_swedish_ci NOT NULL,
+  `pid` int(10) NOT NULL,
+  `provider` varchar(50) COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `services`
+--
+
+INSERT INTO `services` (`id`, `sid`, `category`, `service`, `note`, `min`, `max`, `price`, `status`, `pid`, `provider`) VALUES
+(1, 2, 'IGF', 'Instagram Followers JOZPEDIA 1', 'Username', 300, 1000, 1, 'Active', 2, 'IRVAN'),
+(2, 3, 'IGF', 'Instagram Followers JOZPEDIA 2', 'Username', 300, 15000, 10000, 'Active', 3, 'IRVAN'),
+(3, 4, 'IGF', 'Instagram Followers JOZPEDIA 3 SUPER INSTANT', 'Username', 100, 45000, 12000, 'Active', 4, 'IRVAN'),
+(4, 5, 'IGF', 'Instagram Followers JOZPEDIA 4', 'Username', 100, 45000, 13000, 'Active', 5, 'IRVAN'),
+(5, 6, 'IGF', 'Instagram Followers JOZPEDIA 5', 'Username', 100, 50000, 16000, 'Active', 6, 'IRVAN'),
+(6, 7, 'IGF', 'Instagram Followers JOZPEDIA 6 [30days refill]', 'Username', 100, 20000, 15000, 'Active', 7, 'IRVAN'),
+(7, 8, 'IGF', 'Instagram Followers JOZPEDIA [NON DROP] - [60 DAYS REFILL]', 'Username', 50, 20000, 37000, 'Active', 8, 'IRVAN'),
+(8, 9, 'IGF', 'Instagram Followers JOZPEDIA HOT [INSTANT] (NO REFILL NO REFUND)', 'Username', 100, 10000, 8500, 'Active', 9, 'IRVAN'),
+(9, 10, 'IGF', 'Instagram Followers Indonesia JOZPEDIA PASIF', 'Username', 200, 1500, 29000, 'Active', 10, 'IRVAN'),
+(10, 11, 'IGF', 'Instagram Followers Indonesia+Luar JozPedia Aktip Account', 'Username', 500, 10000, 25000, 'Active', 11, 'IRVAN'),
+(11, 12, 'IGF', 'Instagram Followers Indonesia AKTIP2 [BONUS++] [INSTAN]', 'Username', 250, 1700, 40000, 'Active', 12, 'IRVAN'),
+(12, 13, 'IGF', 'INTAGRAM SERVER VIP 1 [MAX 10K]', 'Username', 100, 10000, 7800, 'Active', 13, 'IRVAN'),
+(13, 14, 'IGF', 'INTAGRAM SERVER VIP 2 [10k]', 'Username', 100, 10000, 7900, 'Active', 14, 'IRVAN'),
+(14, 21, 'IGL', 'Instagram Likes JOZPEDIA 1', 'Link', 100, 5000, 2000, 'Active', 21, 'IRVAN'),
+(15, 22, 'IGL', 'Instagram Likes JOZPEDIA 2', 'Link', 25, 5000, 2800, 'Active', 22, 'IRVAN'),
+(16, 23, 'IGL', 'Instagram Likes JOZPEDIA 3 SUPER INSTANT', 'Link', 100, 9000, 3100, 'Active', 23, 'IRVAN'),
+(17, 24, 'IGL', 'Instagram Video Live Likes - INSTANT', 'Link', 200, 10000, 12000, 'Active', 24, 'IRVAN'),
+(18, 25, 'IGL', 'Instagram Likes Indonesia 1 [BONUS++]', 'Link', 400, 6000, 4200, 'Active', 25, 'IRVAN'),
+(19, 26, 'IGL', 'Instagram Likes Indonesia 2', 'Link', 400, 5000, 4000, 'Active', 26, 'IRVAN'),
+(20, 27, 'IGL', 'Instagram Likes VIP 1', 'Link', 50, 40000, 1300, 'Active', 27, 'IRVAN'),
+(21, 28, 'IGL', 'Instagram Likes VIP 2', 'Link', 100, 7000, 1700, 'Active', 28, 'IRVAN'),
+(22, 29, 'IGL', 'Instagram Likes VIP 3', 'Link', 50, 7000, 445, 'Active', 29, 'IRVAN'),
+(23, 30, 'IGL', 'Instagram Likes JozPedia Termurah', 'Link', 20, 1000, 900, 'Active', 30, 'IRVAN'),
+(24, 31, 'IGV', 'Instagram Views JOZPEDIA 1', 'Link', 100, 999000, 1500, 'Active', 31, 'IRVAN'),
+(25, 32, 'IGV', 'Instagram Views [999K] [REAL]', 'Link', 20, 999000, 2000, 'Active', 32, 'IRVAN'),
+(26, 33, 'IGV', 'NEW CHEAP Instagram Views [800K] [REAL]', 'Link', 50, 800000, 1300, 'Active', 33, 'IRVAN'),
+(27, 34, 'IGV', 'Instagram Views [30K] [REAL] CHEAP', 'Link', 10, 30000, 1000, 'Active', 34, 'IRVAN'),
+(28, 41, 'IGC', 'Instagram Comment Indo JOZPEDIA 1 (Link/ IsiKomentar)', 'Link/Isi Komentar', 100, 3000, 26000, 'Active', 41, 'IRVAN'),
+(29, 42, 'IGC', 'Instagram Comment Indo JOZPEDIA 2 (Link/ IsiKomentar)', 'Link/Isi Komentar', 100, 6000, 38000, 'Active', 42, 'IRVAN'),
+(30, 51, 'TW', 'Twitter Followers R1 [50M] [EGGS]', 'Link', 100, 5000000, 20000, 'Active', 51, 'IRVAN'),
+(31, 52, 'TW', 'Twitter Likes/Favorites', 'Link', 100, 500000, 8000, 'Active', 52, 'IRVAN'),
+(32, 53, 'TW', 'Twitter Retweets', 'Link', 100, 500000, 10000, 'Active', 53, 'IRVAN'),
+(33, 54, 'TW', 'Twitter Auto Likes/Favorites', 'Link', 100, 500, 11000, 'Active', 54, 'IRVAN'),
+(34, 61, 'FB', 'Facebook Followers R1', 'Link', 100, 50000, 22000, 'Active', 61, 'IRVAN'),
+(35, 62, 'FB', 'Facebook Followers R2', 'Link', 50, 5000, 23000, 'Active', 62, 'IRVAN'),
+(36, 63, 'FB', 'Facebook Video Views [MULTIPLE OF 1000]', 'Link', 1000, 1000000, 3000, 'Active', 63, 'IRVAN'),
+(37, 64, 'FB', 'Facebook Friends', 'Link', 25, 5000, 60000, 'Active', 64, 'JOZPEDIA'),
+(38, 65, 'FB', 'Facebook Video Views [ New & Best Server ]', 'Link', 1000, 1000000, 3000, 'Active', 65, 'IRVAN'),
+(39, 66, 'FB', 'Facebook Post Likes [35K] [BRAZIL] ', 'Link', 10, 35000, 8000, 'Active', 66, 'IRVAN'),
+(40, 71, 'YT', 'Youtube Shares', 'Link', 500, 150000, 39000, 'Active', 71, 'IRVAN'),
+(41, 72, 'YT', 'Youtube Likes R1 INSTANT', 'Link', 50, 5000, 40000, 'Active', 72, 'IRVAN'),
+(42, 73, 'YT', 'Youtube Views S3 cheap [5M] [NO REFFIL] NO GARANSI', 'Link', 1000, 50000000, 9500, 'Active', 73, 'IRVAN'),
+(43, 74, 'YT', 'Youtube Views [10M] REFILL 30 DAYS S1 MIN 1K', 'Link', 1000, 1000000000, 18000, 'Active', 74, 'IRVAN'),
+(44, 75, 'YT', 'Youtube Views [5M] [REFILL30 DAYS ] S2', 'Link', 5000, 1000000000, 18000, 'Active', 75, 'IRVAN'),
+(45, 76, 'YT', 'Youtube Subscribers 1', 'Link', 25, 10000, 500000, 'Active', 76, 'IRVAN'),
+(46, 77, 'YT', 'Youtube Subscribers 2', 'Link', 100, 20000, 470000, 'Active', 77, 'IRVAN'),
+(47, 81, 'IGF', 'Instragram Followers Indonesia IKP 1 FAST', 'Username', 100, 1400, 57000, 'Active', 81, 'IRVAN'),
+(48, 82, 'IGF', 'Instagram Followers Indonesia Semarang', 'Username', 100, 1000, 45000, 'Active', 82, 'IRVAN'),
+(49, 83, 'IGF', 'Instagram Followers Indonesia Magelang', 'Username', 50, 1000, 45000, 'Active', 83, 'IRVAN'),
+(50, 84, 'IGF', 'Instagram Followers Indonesia Sukabumi', 'Username', 50, 1000, 46000, 'Active', 84, 'IRVAN'),
+(51, 85, 'IGF', 'Instagram Followers Indonesia Bandung', 'Username', 50, 1000, 53000, 'Active', 85, 'IRVAN'),
+(52, 86, 'IGF', 'Instagram Followers Indonesia Bekasi', 'Username', 50, 1000, 46000, 'Active', 86, 'IRVAN'),
+(53, 87, 'IGF', 'Instagram Followers Indonesia Bali', 'Username', 50, 1000, 57000, 'Active', 87, 'IRVAN'),
+(54, 88, 'IGF', 'Instagram Followers Indonesia Jakarta', 'Username', 50, 1000, 53000, 'Active', 88, 'IRVAN'),
+(55, 89, 'IGF', 'Instagram Followers Indonesia Cirebon', 'Username', 50, 1000, 45000, 'Active', 89, 'IRVAN'),
+(56, 90, 'IGF', 'Instagram Followers Indonesia Lampung', 'Username', 50, 1000, 47000, 'Active', 90, 'IRVAN'),
+(57, 91, 'IGF', 'Instagram Followers Indonesia Palembang', 'Username', 100, 1000, 47000, 'Active', 91, 'IRVAN'),
+(58, 92, 'IGF', 'Instagram Followers Indonesia Aceh', 'Username', 50, 1000, 49000, 'Active', 92, 'IRVAN'),
+(59, 93, 'IGF', 'Instagram Followers Indonesia Surabaya', 'Username', 50, 1000, 47000, 'Active', 93, 'IRVAN'),
+(60, 94, 'IGF', 'Instagram Followers Indonesia Bogor', 'Username', 50, 1000, 48000, 'Active', 94, 'IRVAN'),
+(61, 95, 'IGF', 'Instagram Followers Indonesia Cimahi', 'Username', 50, 1000, 48000, 'Active', 95, 'IRVAN'),
+(62, 96, 'IGF', 'Instagram Followers Indonesia Tangerang', 'Username', 100, 1000, 52000, 'Active', 96, 'IRVAN'),
+(63, 97, 'IGF', 'Instagram Followers Indonesia Purbalingga', 'Username', 100, 1000, 48000, 'Active', 97, 'IRVAN'),
+(64, 98, 'IGF', 'Instagram Followers Indonesia Sulawesi', 'Username', 50, 1000, 52000, 'Active', 98, 'IRVAN'),
+(65, 99, 'IGF', 'Instagram Followers Indonesia Kalimantan', 'Username', 100, 1000, 52000, 'Active', 99, 'IRVAN'),
+(66, 100, 'IGF', 'Instagram Followers Indonesia Makassar', 'Username', 100, 1000, 52000, 'Active', 100, 'IRVAN'),
+(67, 101, 'IGF', 'Instagram Followers Indonesia Solo', 'Username', 150, 1000, 47000, 'Active', 101, 'IRVAN'),
+(68, 102, 'IGF', 'Instagram Followers Indonesia ikp2 CHEAP', 'Username', 300, 1000, 35000, 'Active', 102, 'IRVAN'),
+(69, 103, 'IGF', 'Instagram Followers Indonesia ', 'Username', 50, 150000, 69000, 'Active', 103, 'IRVAN'),
+(70, 104, 'IGF', 'Instagram Followers IKP 12 ( Min 200 | MAX 5K ) ( 0-6 hours start )', 'Username', 200, 50000, 11500, 'Active', 104, 'IRVAN'),
+(71, 105, 'IGF', 'Instagram Followers IKP 13 ( 0-6 hours Start ) Min 500 -MAX 5K', 'Username', 500, 5000, 11000, 'Active', 105, 'IRVAN'),
+(72, 106, 'IGF', 'Instagram Followers VIP MAX 10K CHEAP', 'Username', 100, 10000, 6600, 'Active', 106, 'IRVAN'),
+(73, 107, 'IGF', 'Instagram Followers IKP 10 MAX 1,5K||5 MENIT START', 'Username', 100, 1500, 10500, 'Active', 107, 'IRVAN'),
+(74, 108, 'IGF', 'Instagram Followers Dani R8', 'Username', 300, 10000, 10000, 'Active', 108, 'IRVAN'),
+(75, 109, 'IGF', 'Instagram Followers VIP 4 MAX 4k', 'Username', 200, 4000, 9000, 'Active', 109, 'IRVAN'),
+(76, 110, 'IGF', 'Instagram Followers IrvMedia 3 ', 'Username', 100, 10000, 7000, 'Active', 110, 'JOZPEDIA'),
+(77, 111, 'IGF', 'Instagram Followers VVIIPP - [ Min 100 - Max 5K ] - SUPER FAST', 'Username', 100, 5000, 10000, 'Active', 111, 'IRVAN'),
+(78, 113, 'IGF', 'Instagram Followers Privat S2 Instant Work Norefund No refill Cuma Di JozPedia Panel', 'Username', 200, 4500, 11000, 'Active', 113, 'IRVAN'),
+(79, 114, 'IGF', 'Instagram Followers Privat S3 Instant Work Norefund No refill Cuma Di JozPedia Panel', 'Username', 100, 4500, 8700, 'Active', 114, 'IRVAN'),
+(80, 115, 'IGL', 'Instagram Likes - [Max 2k] [Termurah In JozPedia]', 'Link', 100, 2000, 250, 'Active', 115, 'IRVAN'),
+(81, 116, 'IGL', 'Instagram Likes - (MAX 2500) termurah juga', 'Link', 50, 2000, 500, 'Active', 116, 'IRVAN'),
+(82, 117, 'IGL', 'Instagram Likes [2K] [REAL]', 'Link', 100, 1000, 500, 'Active', 117, 'IRVAN'),
+(83, 119, 'IGL', 'Instagram Like Sangat Murah S2 [MAX2,5K] ( Cheapest in the Market )', 'Link', 100, 2500, 250, 'Active', 119, 'IRVAN'),
+(84, 120, 'IGL', 'Instagram Like Sangat Murah S3 [MIN 20 MAX3K] ( Cheapest in the Market ) ', 'Link', 20, 3000, 240, 'Active', 120, 'IRVAN'),
+(85, 121, 'IGV', 'Instagram Views Cheapest In Market Murahnya Gila [MAX10K]', 'Link', 50, 10000, 250, 'Active', 121, 'IRVAN'),
+(86, 122, 'IGV', 'Instagram Views Cheapest In Market Murahnya Gila S2 [MAX1M]', 'Link', 50, 100000000, 250, 'Active', 122, 'IRVAN'),
+(87, 131, 'YT', 'Youtube Subscribers S2 [ Real | 250-500/day | 10-40% Drop | Max 30k ] ( NO Refill ) TIDAK ADA GARANSI', 'Link', 500, 30000, 145000, 'Active', 131, 'IRVAN'),
+(88, 132, 'YT', 'Youtube - Subscribers [ R1 ] [ Real & Active ][ 10 Days Refill [ Start 6-12hrs ] BACA CATATAN SEBELUM ORDER', 'Link Only, No Reffund', 500, 30000, 105000, 'Active', 132, 'IRVAN'),
+(89, 134, 'YT', 'Youtube Subscribers [20K] [6H] REFILL 30 DAYS', 'Link', 50, 20000, 57000, 'Active', 134, 'IRVAN'),
+(90, 135, 'YT', 'Youtube Views S4 [1M] [REFILL 60DAYS] ', 'Link', 1000, 100000000, 11000, 'Active', 135, 'IRVAN'),
+(91, 136, 'YT', 'Youtube Views - [ No Refill No Refund', 'Link', 1000, 1000000000, 7500, 'Active', 136, 'IRVAN'),
+(92, 141, 'IGF', 'Instagram Followers VVIIPP 2 [6K]', 'Username', 100, 6000, 6100, 'Active', 141, 'IRVAN'),
+(93, 142, 'IGF', 'Instagram Followers VVIIPP 3 [3K]', 'Username', 100, 3000, 6500, 'Active', 142, 'IRVAN'),
+(94, 143, 'IGF', 'Instagram Followers VVIIPP 5 [5K] [NO REFILL NO REFUND] [1MENIT START]', 'Username', 200, 5000, 8500, 'Active', 143, 'IRVAN'),
+(95, 144, 'IGF', 'Instagram Followers VVIIPP 6 - [ Min 100 - Max 5K ] - SUPER FAST', 'Username', 100, 5000, 9000, 'Active', 144, 'IRVAN'),
+(96, 145, 'IGF', 'Instagram Followers VVIIPP 7 INSTAN [10K]', 'Username', 100, 6000, 7500, 'Active', 145, 'IRVAN'),
+(97, 146, 'IGF', 'Instagram Followers VVIIPP 8 30 DAYS REFILL CHEAP [10K]', 'Username', 100, 10000, 7000, 'Active', 146, 'IRVAN'),
+(98, 147, 'IGF', 'Instagram Followers VVIIPP 9 CHEAP [5K] NO REFILL ', 'Username', 100, 5000, 5600, 'Active', 147, 'IRVAN'),
+(99, 148, 'FB', 'Instagram Followers Khusus JOZPEDIA NO REFILL NO REFUND [20K]', 'Username', 100, 20000, 8500, 'Active', 148, 'IRVAN'),
+(100, 149, 'IGF', 'Instagram Followers Khusus JOZPEDIA S2 NO REFILL NO REFUND [2,5K] CHEAP', 'Username', 100, 2500, 5200, 'Active', 149, 'IRVAN'),
+(101, 150, 'IGF', 'Instagram Followers Media 1 [Auto Refill 30 days] [START 1-24 JAM] [MAX10K] [500FOLL/HARI]', 'Username', 1000, 5000, 4950, 'Active', 150, 'IRVAN'),
+(102, 151, 'IGF', 'Instagram Followers Media 2 ( Superfast,Hitungan Menit Start)', 'Username', 100, 7500, 12000, 'Active', 151, 'IRVAN'),
+(103, 152, 'IGF', 'Instagram Followers MURAH S3 KHUSUS JOZPEDIA', 'Username', 100, 1500, 4200, 'Active', 152, 'IRVAN'),
+(104, 153, 'YT', 'Youtube Views Media 1 ( Insant-12 Hours Start, 30 Days refill guarantee )', 'Link Channel', 1000, 15000, 5000, 'Active', 153, 'IRVAN'),
+(105, 154, 'YT', 'Youtube - Views Media 2 Stabil ( Instant start, Speed 10k-100k/day, 30 Days Guarantee )', 'Link channel', 1000, 1000000, 6000, 'Active', 154, 'IRVAN'),
+(106, 999, 'IGL', 'Instagram Like Gratissss JOZPEDIA [MAX2K]', 'Link', 100, 1000, 0, 'Active', 999, 'IRVAN'),
+(108, 417, 'IS', 'Ã¢â€”Â Instagram Follower No Drop -7', 'Link Page Instagram', 100, 5000, 500, 'Active', 417, 'IRVAN');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `services_line`
+--
+
+CREATE TABLE `services_line` (
+  `id` int(10) NOT NULL,
+  `category` enum('S&T','PPT') COLLATE utf8_swedish_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `price` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `services_pulsa`
+--
+
+CREATE TABLE `services_pulsa` (
+  `id` int(10) NOT NULL,
+  `name` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `oprator` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `price` double NOT NULL,
+  `status` enum('Active','Not Active') COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `services_pulsa`
+--
+
+INSERT INTO `services_pulsa` (`id`, `name`, `oprator`, `price`, `status`) VALUES
+(1, 'TELKOMSEL 5.000', 'TELKOMSEL', 7800, 'Active'),
+(2, 'TELKOMSEL 10.000', 'TELKOMSEL', 13500, 'Active'),
+(3, 'TELKOMSEL 20.000', 'TELKOMSEL', 25000, 'Active'),
+(4, 'TELKOMSEL 25.000', 'TELKOMSEL', 31000, 'Active'),
+(5, 'TELKOMSEL 50.000', 'TELKOMSEL', 60000, 'Active'),
+(6, 'TELKOMSEL 100.000', 'TELKOMSEL', 118400, 'Active'),
+(7, 'TELKOMSEL 150.000', 'TELKOMSEL', 178400, 'Active'),
+(8, 'TELKOMSEL 200.000', 'TELKOMSEL', 237400, 'Active'),
+(9, 'TELKOMSEL 300.000', 'TELKOMSEL', 354900, 'Active'),
+(10, 'AXIS 5.000', 'AXIS', 7600, 'Active'),
+(11, 'AXIS 10.000', 'AXIS', 13700, 'Active'),
+(12, 'AXIS 15.000', 'AXIS', 19200, 'Active'),
+(13, 'AXIS 25.000', 'AXIS', 31000, 'Active'),
+(14, 'AXIS 30.000', 'AXIS', 37400, 'Active'),
+(15, 'AXIS 50.000', 'AXIS', 61100, 'Active'),
+(16, 'AXIS 100.000', 'AXIS', 120900, 'Active'),
+(17, 'Bolt 25.000', 'BOLT', 31000, 'Active'),
+(18, 'Bolt 50.000', 'BOLT', 61000, 'Active'),
+(19, 'Bolt 100.000', 'BOLT', 121000, 'Active'),
+(20, 'Bolt 150.000', 'BOLT', 180000, 'Active'),
+(21, 'Bolt 200.000', 'BOLT', 239000, 'Active'),
+(22, 'Indosat 5.000', 'INDOSAT', 7800, 'Active'),
+(23, 'Indosat 10.000', 'INDOSAT', 13900, 'Active'),
+(24, 'Indosat 20.000', 'INDOSAT', 26000, 'Active'),
+(25, 'Indosat 25.000', 'INDOSAT', 31000, 'Active'),
+(26, 'Indosat 30.000', 'INDOSAT', 37400, 'Active'),
+(27, 'Indosat 50.000', 'INDOSAT', 60900, 'Active'),
+(28, 'Indosat 100.000', 'INDOSAT', 120000, 'Active'),
+(29, 'Indosat Transfer 5.000', 'INDOSATTF', 7700, 'Active'),
+(30, 'Indosat Transfer 10.000', 'INDOSATTF', 13000, 'Active'),
+(33, 'Indosat Transfer 100.000', 'INDOSATTF', 116000, 'Active'),
+(34, 'Smartfren 5.000', 'SMARTFREN', 7400, 'Active'),
+(35, 'Smartfren 10.000', 'SMARTFREN', 13000, 'Active'),
+(36, 'Smartfren 20.000', 'SMARTFREN', 25500, 'Active'),
+(37, 'Smartfren 25.000', 'SMARTFREN', 31500, 'Active'),
+(38, 'Smartfren 30.000', 'SMARTFREN', 37500, 'Active'),
+(39, 'Smarftren 50.000', 'SMARTFREN', 59000, 'Active'),
+(41, 'Smartfren 100.000', 'SMARTFREN', 116000, 'Active'),
+(42, 'Telkomsel Transfer 5.000', 'TELKOMSELTF', 8700, 'Active'),
+(43, 'Transfer Telkomsel 10.000', 'TELKOMSELTF', 14400, 'Active'),
+(44, 'Transfer Telkomsel 20.000', 'TELKOMSELTF', 25500, 'Active'),
+(46, 'Transfer Telkomsel 50.000', 'TELKOMSELTF', 60000, 'Active'),
+(47, 'Transfer Telkomsel 100.000', 'TELKOMSELTF', 117000, 'Active'),
+(48, 'TRI 1.000', 'TRI', 2500, 'Active'),
+(49, 'TRI 2.000', 'TRI', 3500, 'Active'),
+(50, 'TRI 3.000', 'TRI', 4600, 'Active'),
+(51, 'TRI 4.000', 'TRI', 6200, 'Active'),
+(52, 'TRI 5.000', 'TRI', 7200, 'Active'),
+(53, 'TRI 6.000', 'TRI', 8600, 'Active'),
+(54, 'TRI 7.000', 'TRI', 9500, 'Active'),
+(55, 'TRI 8.000', 'TRI', 11000, 'Active'),
+(56, 'TRI 9.000', 'TRI', 12000, 'Active'),
+(57, 'TRI 10.000', 'TRI', 13000, 'Active'),
+(58, 'TRI 20.000', 'TRI', 25000, 'Active'),
+(59, 'TRI 25.000', 'TRI', 30500, 'Active'),
+(60, 'TRI 30.000', 'TRI', 37500, 'Active'),
+(61, 'TRI 40.000', 'TRI', 50000, 'Active'),
+(62, 'TRI 50.000', 'TRI', 61000, 'Active'),
+(64, 'TRI 100.000', 'TRI', 119000, 'Active'),
+(66, 'XL REGULER 5.000', 'XL', 7900, 'Active'),
+(67, 'XL REGULER 10.000', 'XL', 14000, 'Active'),
+(68, 'XL REGULER 15.000', 'XL', 19500, 'Active'),
+(69, 'XL REGULER 25.000', 'XL', 31000, 'Active'),
+(70, 'XL REGULER 30.000', 'XL', 37500, 'Active'),
+(71, 'XL REGULER 50.000', 'XL', 61000, 'Active'),
+(72, 'XL REGULER 100.000', 'XL', 120000, 'Active'),
+(73, 'SALDO GOJEK 20K', 'GOJEK', 26000, 'Active'),
+(74, 'SALDO GOJEK 25K', 'GOJEK', 32000, 'Active'),
+(75, 'SALDO GOJEK 50K', 'GOJEK', 61000, 'Active'),
+(76, 'SALDO GOJEK 100K', 'GOJEK', 122000, 'Active'),
+(77, 'SALDO GRAB 10K', 'GRAB', 14000, 'Active'),
+(78, 'SALDO GRAB 20K', 'GRAB', 26000, 'Active'),
+(79, 'SALDO GRAB 25K', 'GRAB', 32000, 'Active'),
+(80, 'SALDO GRAB 50K', 'GRAB', 61000, 'Active'),
+(81, 'SALDO GRAB 100K', 'GRAB', 122000, 'Active'),
+(82, 'STEAM - 12.000', 'STEAM', 20000, 'Active'),
+(83, 'STEAM - 45.000', 'STEAM', 65000, 'Active'),
+(84, 'STEAM - 60.000', 'STEAM', 86000, 'Active'),
+(85, 'STEAM - 90.000', 'STEAM', 128000, 'Active'),
+(86, 'STEAM - 120.000', 'STEAM', 170000, 'Active'),
+(87, 'STEAM - 250.000', 'STEAM', 351000, 'Active'),
+(88, 'GARENA v10 = 33 Shell', 'GARENA', 12500, 'Active'),
+(89, 'GARENA v20 = 66 Shell', 'GARENA', 24000, 'Active'),
+(90, 'GARENA v50 = 166 Shell', 'GARENA', 57000, 'Active'),
+(91, 'GARENA v100 = 333 Shell', 'GARENA', 111000, 'Active'),
+(92, 'Voucher Gemscool 1.000 G-cash', 'GEMSCOOL', 12500, 'Active'),
+(93, 'Voucher Gemscool 2.000 G-cash', 'GEMSCOOL', 24000, 'Active'),
+(94, 'Voucher Gemscool 5.000 G-cash', 'GEMSCOOL', 57000, 'Active'),
+(95, 'Voucher Gemscool 10.000 G-cash', 'GEMSCOOL', 111000, 'Active'),
+(96, 'AXIS BRONET 24 JAM KUOTA 300MB/7 HR', 'INTERNETAXIS', 10800, 'Active'),
+(97, 'AXIS BRONET 24 JAM KUOTA 1GB/30 HR', 'INTERNETAXIS', 27000, 'Active'),
+(98, 'AXIS BRONET 24 JAM KUOTA 2GB/60 HR', 'INTERNETAXIS', 37000, 'Active'),
+(99, 'AXIS BRONET 24 JAM KUOTA 3GB/60 HR', 'INTERNETAXIS', 47000, 'Active'),
+(100, 'AXIS BRONET 24 JAM KUOTA 5GB/60 HR', 'INTERNETAXIS', 72000, 'Active');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `service_cat`
+--
+
+CREATE TABLE `service_cat` (
+  `id` int(10) NOT NULL,
+  `name` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `code` varchar(50) COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `service_cat`
+--
+
+INSERT INTO `service_cat` (`id`, `name`, `code`) VALUES
+(1, 'Instagram ', 'IG'),
+(2, 'Instagram Followes', 'IGF'),
+(4, 'Youtube', 'YT'),
+(5, 'SoundCloud', 'SC'),
+(6, 'Spotify', 'SP'),
+(7, 'Vine', 'VN'),
+(8, 'Pinterest', 'PT'),
+(9, 'Facebook', 'FB'),
+(10, 'Twitter', 'TW');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `staff`
+--
+
+CREATE TABLE `staff` (
+  `id` int(10) NOT NULL,
+  `name` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `contact` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `level` enum('Admin','Reseller') COLLATE utf8_swedish_ci NOT NULL,
+  `pict` text COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `topup`
+--
+
+CREATE TABLE `topup` (
+  `id` int(11) NOT NULL,
+  `method` enum('Telkomsel','BCA') NOT NULL,
+  `username` varchar(200) NOT NULL,
+  `pengirim` varchar(200) NOT NULL,
+  `jumlah` varchar(200) NOT NULL,
+  `status` enum('Waiting','Completed','Canceled') NOT NULL,
+  `time` varchar(200) NOT NULL,
+  `kode` varchar(200) NOT NULL,
+  `tanggal` date NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transfer_balance`
+--
+
+CREATE TABLE `transfer_balance` (
+  `id` int(10) NOT NULL,
+  `sender` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `receiver` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `quantity` double NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(10) NOT NULL,
+  `username` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `password` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `balance` double NOT NULL,
+  `level` enum('Member','Agen','Reseller','Admin','Developers') COLLATE utf8_swedish_ci NOT NULL,
+  `registered` date NOT NULL,
+  `status` enum('Active','Suspended') COLLATE utf8_swedish_ci NOT NULL,
+  `api_key` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `uplink` varchar(100) COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `balance`, `level`, `registered`, `status`, `api_key`, `uplink`) VALUES
+(1, 'borneo', 'borneo', 999988811, 'Developers', '2018-05-14', 'Active', '', 'server'),
+(2, 'samary', 'samary', 982, 'Reseller', '2018-05-15', 'Active', '8GhGmNh5xygulERxGbYZ', 'borneo');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `berita`
+--
+ALTER TABLE `berita`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders_line`
+--
+ALTER TABLE `orders_line`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders_pulsa`
+--
+ALTER TABLE `orders_pulsa`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_history`
+--
+ALTER TABLE `order_history`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
+-- Indexes for table `provider`
+--
+ALTER TABLE `provider`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `services_line`
+--
+ALTER TABLE `services_line`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `services_pulsa`
+--
+ALTER TABLE `services_pulsa`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `service_cat`
+--
+ALTER TABLE `service_cat`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `staff`
+--
+ALTER TABLE `staff`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `topup`
+--
+ALTER TABLE `topup`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `transfer_balance`
+--
+ALTER TABLE `transfer_balance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `berita`
+--
+ALTER TABLE `berita`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `news`
+--
+ALTER TABLE `news`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `orders_line`
+--
+ALTER TABLE `orders_line`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `orders_pulsa`
+--
+ALTER TABLE `orders_pulsa`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `order_history`
+--
+ALTER TABLE `order_history`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `provider`
+--
+ALTER TABLE `provider`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `services`
+--
+ALTER TABLE `services`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+
+--
+-- AUTO_INCREMENT for table `services_line`
+--
+ALTER TABLE `services_line`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `services_pulsa`
+--
+ALTER TABLE `services_pulsa`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+
+--
+-- AUTO_INCREMENT for table `service_cat`
+--
+ALTER TABLE `service_cat`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `staff`
+--
+ALTER TABLE `staff`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `topup`
+--
+ALTER TABLE `topup`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `transfer_balance`
+--
+ALTER TABLE `transfer_balance`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
