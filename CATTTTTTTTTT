@@ -1,0 +1,92 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.7
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Jul 15, 2018 at 04:56 PM
+-- Server version: 5.6.39-log
+-- PHP Version: 5.6.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `xhomete1_smm`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `service_cat`
+--
+
+CREATE TABLE `service_cat` (
+  `id` int(10) NOT NULL,
+  `name` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `code` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `status` enum('Active','Not active') COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `service_cat`
+--
+
+INSERT INTO `service_cat` (`id`, `name`, `code`, `status`) VALUES
+(1, 'NECRO BEE', 'SM', 'Active'),
+(2, 'Instagram Followers [No Waranty}', 'SM', 'Active'),
+(3, 'Instagram Followers Indonesia & Malaysia', 'SM', 'Active'),
+(4, 'Instagram Like', 'SM', 'Active'),
+(5, 'Instagram Likes Indonesia', 'SM', 'Active'),
+(6, 'Instagram Likes / Likes + Impressions', 'SM', 'Active'),
+(7, 'Instagram Followers [Refill] [Guaranteed] [NonDrop]', 'SM', 'Active'),
+(8, 'Youtube Subscribers', 'SM', 'Active'),
+(9, 'Pinterest', 'SM', 'Active'),
+(10, 'Facebook Post Likes / Comments / Shares / Events</option', 'SM', 'Active'),
+(11, 'Musical.ly', 'SM', 'Active'),
+(12, 'Instagram TV', 'SM', 'Active'),
+(13, 'Website Traffic [Targeted]', 'SM', 'Active'),
+(14, 'Axis', 'SM', 'Active'),
+(15, 'XL', 'PI', 'Active'),
+(16, 'Bolt', 'PI', 'Active'),
+(17, 'Smartfren', 'PI', 'Active'),
+(18, 'Indosat', 'PR', 'Active'),
+(19, 'Telkomsel', 'PR', 'Active'),
+(20, 'Tri', 'PR', 'Active'),
+(21, 'Axis', 'PR', 'Active'),
+(22, 'XL', 'PR', 'Active'),
+(23, 'Bolt', 'PR', 'Active'),
+(24, 'Smartfren', 'PR', 'Active'),
+(25, 'Token PLN', 'PLN', 'Active');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `service_cat`
+--
+ALTER TABLE `service_cat`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `service_cat`
+--
+ALTER TABLE `service_cat`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
