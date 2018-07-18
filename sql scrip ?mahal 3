@@ -1,0 +1,398 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: 25 Mar 2018 pada 16.22
+-- Versi Server: 10.1.28-MariaDB
+-- PHP Version: 7.1.11
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `malay`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `balance_history`
+--
+
+CREATE TABLE `balance_history` (
+  `id` int(10) NOT NULL,
+  `username` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `action` enum('Add Balance','Cut Balance','Refunded Balance') COLLATE utf8_swedish_ci NOT NULL,
+  `quantity` int(10) NOT NULL,
+  `msg` text COLLATE utf8_swedish_ci NOT NULL,
+  `date` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `time` varchar(50) COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `deposits`
+--
+
+CREATE TABLE `deposits` (
+  `id` int(10) NOT NULL,
+  `code` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `user` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `method` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `note` text COLLATE utf8_swedish_ci NOT NULL,
+  `pengirim` varchar(200) COLLATE utf8_swedish_ci NOT NULL,
+  `quantity` int(10) NOT NULL,
+  `balance` int(10) NOT NULL,
+  `status` enum('Pending','Success','Error') COLLATE utf8_swedish_ci NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `deposit_method`
+--
+
+CREATE TABLE `deposit_method` (
+  `id` int(10) NOT NULL,
+  `name` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `rate` varchar(10) COLLATE utf8_swedish_ci NOT NULL,
+  `note` text COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `news`
+--
+
+CREATE TABLE `news` (
+  `id` int(10) NOT NULL,
+  `date` date NOT NULL,
+  `content` text COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(10) NOT NULL,
+  `oid` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `poid` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `user` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `service` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `link` text COLLATE utf8_swedish_ci NOT NULL,
+  `quantity` int(10) NOT NULL,
+  `remains` int(10) NOT NULL,
+  `start_count` int(10) NOT NULL,
+  `price` double NOT NULL,
+  `status` enum('Pending','Processing','Error','Partial','Success') COLLATE utf8_swedish_ci NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `provider` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `place_from` enum('WEB','API') COLLATE utf8_swedish_ci NOT NULL,
+  `notes` text COLLATE utf8_swedish_ci NOT NULL,
+  `refund` int(2) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `provider`
+--
+
+CREATE TABLE `provider` (
+  `id` int(10) NOT NULL,
+  `code` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `link` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `api_key` varchar(100) COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data untuk tabel `provider`
+--
+
+INSERT INTO `provider` (`id`, `code`, `link`, `api_key`) VALUES
+(1, 'MANUAL', '', ''),
+(2, 'IRVANKEDE', 'http://irvankede-panelnew.com/api/', 'YI7QRjOJ66itDhJlSszwN3buFPmiOE');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `services`
+--
+
+CREATE TABLE `services` (
+  `id` int(10) NOT NULL,
+  `sid` int(10) NOT NULL,
+  `category` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `service` text COLLATE utf8_swedish_ci NOT NULL,
+  `note` text COLLATE utf8_swedish_ci NOT NULL,
+  `min` int(10) NOT NULL,
+  `max` int(10) NOT NULL,
+  `price` double NOT NULL,
+  `status` enum('Active','Not active') COLLATE utf8_swedish_ci NOT NULL,
+  `pid` int(10) NOT NULL,
+  `provider` varchar(50) COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `service_cat`
+--
+
+CREATE TABLE `service_cat` (
+  `id` int(10) NOT NULL,
+  `name` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `code` varchar(50) COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data untuk tabel `service_cat`
+--
+
+INSERT INTO `service_cat` (`id`, `name`, `code`) VALUES
+(1, 'Instagram Followers', 'IGF'),
+(2, 'Instagram Likes', 'IGL'),
+(3, 'Instagram Views', 'IGV'),
+(4, 'Facebook', 'FB'),
+(5, 'YouTube', 'YT'),
+(6, 'Twitter', 'TW');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tickets`
+--
+
+CREATE TABLE `tickets` (
+  `id` int(10) NOT NULL,
+  `user` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `subject` varchar(200) COLLATE utf8_swedish_ci NOT NULL,
+  `message` text COLLATE utf8_swedish_ci NOT NULL,
+  `datetime` datetime NOT NULL,
+  `last_update` datetime NOT NULL,
+  `status` enum('Pending','Responded','Closed','Waiting') COLLATE utf8_swedish_ci NOT NULL,
+  `seen_user` int(1) NOT NULL DEFAULT '1',
+  `seen_admin` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tickets_message`
+--
+
+CREATE TABLE `tickets_message` (
+  `id` int(10) NOT NULL,
+  `ticket_id` int(10) NOT NULL,
+  `sender` enum('Member','Admin') COLLATE utf8_swedish_ci NOT NULL,
+  `user` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `message` text COLLATE utf8_swedish_ci NOT NULL,
+  `datetime` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `transfer_balance`
+--
+
+CREATE TABLE `transfer_balance` (
+  `id` int(10) NOT NULL,
+  `sender` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `receiver` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `quantity` double NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(10) NOT NULL,
+  `username` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `password` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `balance` double NOT NULL,
+  `level` enum('Member','Free','Agen','Reseller','Admin','Developers') COLLATE utf8_swedish_ci NOT NULL,
+  `registered` date NOT NULL,
+  `status` enum('Active','Suspended') COLLATE utf8_swedish_ci NOT NULL,
+  `api_key` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `uplink` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `verif_code` varchar(50) COLLATE utf8_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `balance_history`
+--
+ALTER TABLE `balance_history`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `deposits`
+--
+ALTER TABLE `deposits`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `deposit_method`
+--
+ALTER TABLE `deposit_method`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `provider`
+--
+ALTER TABLE `provider`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `service_cat`
+--
+ALTER TABLE `service_cat`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tickets`
+--
+ALTER TABLE `tickets`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tickets_message`
+--
+ALTER TABLE `tickets_message`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `transfer_balance`
+--
+ALTER TABLE `transfer_balance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `balance_history`
+--
+ALTER TABLE `balance_history`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `deposits`
+--
+ALTER TABLE `deposits`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `deposit_method`
+--
+ALTER TABLE `deposit_method`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `news`
+--
+ALTER TABLE `news`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `provider`
+--
+ALTER TABLE `provider`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `services`
+--
+ALTER TABLE `services`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `service_cat`
+--
+ALTER TABLE `service_cat`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `tickets`
+--
+ALTER TABLE `tickets`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tickets_message`
+--
+ALTER TABLE `tickets_message`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `transfer_balance`
+--
+ALTER TABLE `transfer_balance`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
