@@ -1,0 +1,40 @@
+n<?php
+/*
+Script by blog.dhifoaksa.id
+visit us on blog.dhifoaksa.id
+Hargai Jika anda Ingin di hargai
+Copyright @dhifoaksa
+Tidak Untuk Di Perjual Belikan
+*/
+
+$apimu="API KEY ORION PANEL ANDA";//API KEY ANDA DI ORION PANEL
+$postdata = "key=$apimu&method=service";//POST DATA KEPADA ORION PANEL
+$apibase= "https://all-orionpanel-5.co.id/API?type=sosmed";//BASE API 
+
+$curl = curl_init();
+curl_setopt($curl, CURLOPT_URL, $apibase);
+curl_setopt($curl, CURLOPT_POST, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $postdata);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+/*copyright 2018 blog.dhifoaksa.id*/
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+$dhifoaksa = curl_exec($curl);
+//echo $dhifoaksa;
+curl_close($curl);
+$result_dhifo= json_decode($dhifoaksa, true);
+$indeks=0; 
+$i = 1;
+//Menampilkan Data Yang Di get dari Pusat 
+while($indeks < count($result_dhifo)){
+    $harga=$result_dhifo[$indeks]['rate']*1000;
+echo"==================//////////////============== <br />";
+echo"Service ID =>".$result_dhifo[$indeks]['id']."<br />";
+echo"type =>".$result_dhifo[$indeks]['type']."<br />";
+echo"name =>".$result_dhifo[$indeks]['name']."<br />";
+echo"rate =>$harga<br />";
+echo"min =>".$result_dhifo[$indeks]['min']."<br />";
+echo"max =>".$result_dhifo[$indeks]['max']."<br />";
+echo"==================//////////////============== <br />";
+$indeks++; 
+$i++;
+}
