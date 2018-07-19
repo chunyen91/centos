@@ -1,0 +1,44 @@
+<?php
+// Penulis Kode IRV - Maret 2017
+// Hargailah orang lain jika Anda ingin dihargai - IRV
+// Script ini KHUSUS dibuat dan di oper ke IRVANKEDE SMM
+
+date_default_timezone_set('Asia/Jakarta');
+//error_reporting(0);
+
+// web
+$cfg_webname = "MHR Panel";
+$cfg_baseurl = "http://panelnecrobee.xyz/";
+$cfg_desc = "MHR Panel has the Cheapest SMM Panel and 100% High Quality for all social networks. Get the best Instagram panel today!";
+$cfg_author = "C&R Writter";
+$cfg_logo_txt = "MHR Panel";
+$cfg_registerurl = "http://panelnecrobee.xyz/signup";
+$cfg_about = "MHR Panel has the Cheapest SMM Panel and 100% High Quality for all social networks. Get the best Instagram panel today!";
+
+// fitur staff
+$cfg_min_transfer = 1000; // jumlah minimal transfer saldo
+$cfg_member_price = 10000; // harga pendaftaran member
+$cfg_member_bonus = 5000; // bonus saldo member
+$cfg_agen_price = 15000; // harga pendaftaran agen
+$cfg_agen_bonus = 10000; // bonus saldo agen
+$cfg_reseller_price = 35000; // harga pendaftaran reseller
+$cfg_reseller_bonus = 25000; // bonus saldo reseller
+$cfg_admin_price = 50000; // harga pendaftaran admin
+$cfg_admin_bonus = 50000; // bonus saldo admin
+
+// config api key fitur pulsa & line
+$cfg_apikey_pulsaline = "2VqHz-MkIRJ-0fIFN";
+
+// database
+$db_server = "localhost";
+$db_user = "u832537378_smm";
+$db_password = "u832537378_";
+$db_name = "u832537378_smm";
+
+// date & time
+$date = date("Y-m-d");
+$time = date("H:i:s");
+
+// require
+require("lib/database.php");
+require("lib/function.php");
