@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+	
+<!-- ** HARGAI ORANG JIKA INGIN DI HARGAI ** -->
+<!-- ** COPYRIGHT BY JAFAR TRI MAULANA @ FARCODE 2018 THX ** -->
+
+<head>
+    <link href="<?php echo $cfg_baseurl; ?>assets/logo2.jpg" rel="shortcut icon">
+		<title><?php echo $cfg_webname; ?></title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<!-- VENDOR CSS -->
+		<link rel="stylesheet" href="<?php echo $cfg_baseurl; ?>assets/vendor/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="<?php echo $cfg_baseurl; ?>assets/vendor/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="<?php echo $cfg_baseurl; ?>assets/vendor/themify-icons/css/themify-icons.css">
+		<link rel="stylesheet" href="<?php echo $cfg_baseurl; ?>assets/vendor/pace/themes/orange/pace-theme-minimal.css">
+		<link rel="stylesheet" href="<?php echo $cfg_baseurl; ?>assets/css/vendor/animate/animate.min.css">
+		<link rel="stylesheet" href="<?php echo $cfg_baseurl; ?>assets/vendor/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css">
+		<link rel="stylesheet" href="<?php echo $cfg_baseurl; ?>assets/vendor/x-editable/bootstrap3-editable/css/bootstrap-editable.css">
+		<link rel="stylesheet" href="<?php echo $cfg_baseurl; ?>assets/vendor/bootstrap-tour/css/bootstrap-tour.min.css">
+		<link rel="stylesheet" href="<?php echo $cfg_baseurl; ?>assets/vendor/jqvmap/jqvmap.min.css">
+		<!-- MAIN CSS -->
+		<link rel="stylesheet" href="<?php echo $cfg_baseurl; ?>assets/css/main.min.css">
+		<link rel="stylesheet" href="<?php echo $cfg_baseurl; ?>assets/css/skins/sidebar-nav-darkgray.css" type="text/css">
+		<link rel="stylesheet" href="<?php echo $cfg_baseurl; ?>assets/css/skins/navbar3.css" type="text/css">
+		<!-- FOR DEMO PURPOSES ONLY. You should/may remove this in your project -->
+		<link rel="stylesheet" href="<?php echo $cfg_baseurl; ?>assets/css/demo.min.css">
+		<link rel="stylesheet" href="<?php echo $cfg_baseurl; ?>demo-panel/style-switcher.css">
+		<!-- ICONS -->
+	</head>
+	<body>
+		<!-- WRAPPER -->
+		<div id="wrapper">
+			<!-- NAVBAR -->
+			<nav class="navbar navbar-default navbar-fixed-top">
+				<div class="brand">
+					<a href="<?php echo $cfg_baseurl; ?>index.php">
+					<font color="white">KHAN</font><font color="black">PEDIA</black>
+					</a>
+				</div>
+				<div class="container-fluid">
+					<div id="tour-fullwidth" class="navbar-btn">
+						<button type="button" class="btn-toggle-fullwidth"><i class="ti-arrow-circle-left"></i></button>
+					</div>
+					<form class="navbar-form navbar-left search-form">
+						<input type="text" value="" class="form-control" placeholder="Search Halaman...">
+						<button type="button" class="btn btn-default"><i class="fa fa-search"></i></button>
+					</form>
+					<div id="navbar-menu">
+						<ul class="nav navbar-nav navbar-right">
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+									<i class="ti-bell"></i>
+									<span class="badge bg-danger">5</span>
+								</a>
+								<ul class="dropdown-menu notifications">
+									<li>You Have 5 New Notifications</li>
+									<li>
+										<a href="#" class="notification-item">
+											<i class="fa fa-hdd-o custom-bg-red"></i>
+											<p>
+												<span class="text">Selamat Datang <?php echo $sess_username; ?></span>
+												<span class="timestamp">11 minutes ago</span>
+											</p>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="notification-item">
+											<i class="fa fa-tasks custom-bg-yellow"></i>
+											<p>
+												<span class="text">Silakan Anda Bisa Melakukan Transaksi</span>
+												<span class="timestamp">20 minutes ago</span>
+											</p>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="notification-item">
+											<i class="fa fa-book custom-bg-green2"></i>
+											<p>
+												<span class="text">Kami Menyediakan Layanan Sangat Murah</span>
+												<span class="timestamp">1 hour ago</span>
+											</p>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="notification-item">
+											<i class="fa fa-bullhorn custom-bg-purple"></i>
+											<p>
+												<span class="text">Semua Layanan Terjamin & Berkualitas</span>
+												<span class="timestamp">2 hours ago</span>
+											</p>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="notification-item">
+											<i class="fa fa-check custom-bg-green"></i>
+											<p>
+												<span class="text">Butuh Bantuan ? Kontak Admin</span>
+												<span class="timestamp">3 days ago</span>
+											</p>
+										</a>
+									</li>
+									<li><a href="#" class="more">See all notifications</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="#" id="tour-help" class="dropdown-toggle" data-toggle="dropdown"><i class="ti-help"></i> <span class="hide">Help</span></a>
+								<ul class="dropdown-menu">
+									<li><a href="#"><i class="ti-direction"></i> Selamat Datang ,<?php echo $sess_username; ?></a></li>
+									<li><a href="#"><i class="ti-server"></i> Happy Shopping User</a></li>
+									<li><a href="#"><i class="ti-lock"></i> Butuh Bantuan ? Kontak Admin</a></li>
+									<li><a href="https://fb.com/jafartrym"><i class="fa fa-tags"></i>CREATED BY @ Khan pedia</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<img src="<?php echo $cfg_baseurl; ?>assets/logo1.jpg" alt="Avatar">
+									<span><?php echo $sess_username; ?></span>
+								</a>
+								<ul class="dropdown-menu logged-user-menu">
+									<li><a href="<?php echo $cfg_baseurl; ?>settings.php"><i class="ti-settings"></i> <span>Settings Account</span></a></li>
+									<li><a href="<?php echo $cfg_baseurl; ?>logout.php"><i class="ti-power-off"></i> <span>Logout</span></a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<!-- END NAVBAR -->
+			<!-- LEFT SIDEBAR -->
+			<div id="sidebar-nav" class="sidebar">
+				<nav>
+				    <script type="text/javascript">        
+    function tampilkanwaktu(){         //fungsi ini akan dipanggil di bodyOnLoad dieksekusi tiap 1000ms = 1detik    
+    var waktu = new Date();            //membuat object date berdasarkan waktu saat 
+    var sh = waktu.getHours() + "";    //memunculkan nilai jam, //tambahan script + "" supaya variable sh bertipe string sehingga bisa dihitung panjangnya : sh.length    //ambil nilai menit
+    var sm = waktu.getMinutes() + "";  //memunculkan nilai detik    
+    var ss = waktu.getSeconds() + "";  //memunculkan jam:menit:detik dengan menambahkan angka 0 jika angkanya cuma satu digit (0-9)
+    document.getElementById("clock").innerHTML = (sh.length==1?"0"+sh:sh) + ":" + (sm.length==1?"0"+sm:sm) + ":" + (ss.length==1?"0"+ss:ss);
+    }
+</script>
+<body onload="tampilkanwaktu();setInterval('tampilkanwaktu()', 1000);">        
+<div class="alert alert-success" role="alert">
+<h4 class="alert-heading">
+<span id="clock"></span>
+<?php
+$hari = date('l');
+if ($hari=="Sunday") {
+ echo "Minggu";
+}elseif ($hari=="Monday") {
+ echo "Isnin";
+}elseif ($hari=="Tuesday") {
+ echo "Selasa";
+}elseif ($hari=="Wednesday") {
+ echo "Rabu";
+}elseif ($hari=="Thursday") {
+ echo("Khamis");
+}elseif ($hari=="Friday") {
+ echo "Jumaat";
+}elseif ($hari=="Saturday") {
+ echo "Sabtu";
+}
+?>,
+
+<?php
+$tgl =date('d');
+echo $tgl;
+$bulan =date('F');
+if ($bulan=="January") {
+ echo " Januari ";
+}elseif ($bulan=="February") {
+ echo " Februari ";
+}elseif ($bulan=="March") {
+ echo " Maret ";
+}elseif ($bulan=="April") {
+ echo " April ";
+}elseif ($bulan=="May") {
+ echo " Mei ";
+}elseif ($bulan=="June") {
+ echo " Juni ";
+}elseif ($bulan=="July") {
+ echo " Juli ";
+}elseif ($bulan=="August") {
+ echo " Agustus ";
+}elseif ($bulan=="September") {
+ echo " September ";
+}elseif ($bulan=="October") {
+ echo " Oktober ";
+}elseif ($bulan=="November") {
+ echo " November ";
+}elseif ($bulan=="December") {
+ echo " Desember ";
+}
+$tahun=date('Y');
+echo $tahun;
+?>
+</h4>
+</div>
+<br>
+					<ul class="nav" id="sidebar-nav-menu">
+						<li class="menu-group">MAIN NAVIGATION</li>
+            <?php
+							if (isset($_SESSION[ 'user'])) {
+							?>
+							<li class="panel">
+							<a href="#subLayouts" data-toggle="collapse" data-parent="#sidebar-nav-menu" class="collapsed"><i class="fa fa-key"></i> <span class="title">Akun</span> <i class="icon-submenu ti-angle-left"></i></a>
+							<div id="subLayouts" class="collapse ">
+								<ul class="submenu">
+									<li><a href="<?php echo $cfg_baseurl; ?>logout.php">Logout</a></li>
+									<li><a href="<?php echo $cfg_baseurl; ?>settings.php">Setting</a></li>
+									</ul>
+							</div>
+						</li>
+				
+							<?php
+							if ($data_user[ 'level'] != "Member" ) {
+							?>
+								<li class="panel">
+							<a href="#forms" data-toggle="collapse" data-parent="#sidebar-nav-menu" class="collapsed"><i class="fa fa-user-plus"></i> <span class="title">Staff Menu</span> <i class="icon-submenu ti-angle-left"></i></a>
+							<div id="forms" class="collapse ">
+								<ul class="submenu">
+									<li><a href="<?php echo $cfg_baseurl; ?>staff/add_member.php">Add Member</a></li>
+									<?php
+									if ($data_user[ 'level'] != "Agen" ) {
+									?>
+									<li><a href="<?php echo $cfg_baseurl; ?>staff/add_agen.php">Add Agen</a></li>
+									<?php
+									if ($data_user[ 'level'] != "Reseller" ) {
+									?>
+									<li><a href="<?php echo $cfg_baseurl; ?>staff/add_reseller.php">Add Reseller</a></li>
+									<?php
+									if ($data_user[ 'level'] != "Admin" ) {
+									?>
+									<li><a href="<?php echo $cfg_baseurl; ?>staff/add_admin.php">Add Admin</a></li>
+									<?php
+									}
+									}
+									}
+									?>
+								    <li><a href="<?php echo $cfg_baseurl; ?>staff/transfer_balance.php">Transfer Saldo</a></li>
+							</ul>
+							</div>
+						</li>
+						<?php
+							}
+							?>
+							<?php
+							if ($data_user[ 'level'] == "Developers") {
+							?>
+							<li class="panel">
+							<a href="#appViews" data-toggle="collapse" data-parent="#sidebar-nav-menu" class="collapsed"><i class="fa fa-star"></i> <span class="title">Admin Menu</span> <i class="icon-submenu ti-angle-left"></i></a>
+							<div id="appViews" class="collapse ">
+								<ul class="submenu">
+									<li><a href="<?php echo $cfg_baseurl; ?>admin/users.php">Manage User</a></li>
+									<li><a href="<?php echo $cfg_baseurl; ?>admin/services.php">Manage Service</a></li>
+									<li><a href="<?php echo $cfg_baseurl; ?>admin/services_pulsa.php">Manage Service ( Pulsa )</a></li>
+									<li><a href="<?php echo $cfg_baseurl; ?>admin/orders.php">Manage Order</a></li>
+									<li><a href="<?php echo $cfg_baseurl; ?>admin/deposit_manual.php">Manage Deposit</a></li>
+									<li><a href="<?php echo $cfg_baseurl; ?>admin/orders_pulsa.php">Manage Order ( Pulsa )</a></li>
+									<li><a href="<?php echo $cfg_baseurl; ?>admin/information_atl.php">Manage News</a></li>
+									<li><a href="<?php echo $cfg_baseurl; ?>admin/tickets.php">Manage Ticket</a></li>
+									<li><a href="<?php echo $cfg_baseurl; ?>admin/staff.php">Manage Staff</a></li>
+									<li><a href="<?php echo $cfg_baseurl; ?>admin/transfer_history.php">History Transfer</a></li>
+								</ul>
+							</div>
+						</li>
+							<?php
+							}
+							?>              
+							            <li class="menu-group">MAIN HALAMAN</li>
+										<li>
+											<a href="<?php echo $cfg_baseurl; ?>"> <i class="fa fa-home icon"> <b class="bg-success"></b> </i> <span>Dashboard</span> </a>
+										</li>
+						<li class="panel">
+							<a href="#tables" data-toggle="collapse" data-parent="#sidebar-nav-menu" class="collapsed"><i class="fa fa-shopping-cart"></i> <span class="title">New Ordee</span> <i class="icon-submenu ti-angle-left"></i></a>
+							<div id="tables" class="collapse ">
+								<ul class="submenu">
+												<li><a href="<?php echo $cfg_baseurl; ?>order/sosmed_atlantic.php"><span>Sosial Media<span class="label label-success">HOT</span></a></li>
+												<li><a href="<?php echo $cfg_baseurl; ?>order/history/sosmed_atlantic.php"><span>Riwayat Pemesanan</span> </a></li>
+												</br>
+												<li><a href="<?php echo $cfg_baseurl; ?>order/pulsa_atlantic.php"> <span>Pesanan Pulsa<span class="label label-danger">FAST</span></a></li>
+												<li><a href="<?php echo $cfg_baseurl; ?>order/history/pulsa_atlantic"><span>History Order</span> </a></li>
+											</ul>
+							        </div>
+					    	</li>
+					    	<li>
+					    		<a href="<?php echo $cfg_baseurl; ?>deposit/deposit_manual.php"> <i class="fa fa-money"> <b class="bg-success"></b> </i> <span>Add Balance</span> </a>
+										</li>
+					        	 <li><a href="<?php echo $cfg_baseurl; ?>main/tickets.php"> <i class="fa fa-ticket"> <b class="bg-success"></b> </i> <span>Ticket Support</span> </a></li>
+					        	 
+					        	
+							<?php
+							} else {
+							?>
+							            <li><a href="<?php echo $cfg_baseurl; ?>index.php"> <i class="fa fa-sign-in icon"> <b class="bg-success"></b> </i> <span>Login</span> </a></li>
+							<?php
+							}
+							?>
+							
+											<li><a href="<?php echo $cfg_baseurl; ?>list_staff_atlantic.php"> <i class="fa fa-phone icon"> <b class="bg-warning"></b> </i> <span>Contact Staff</span> </a></li>
+
+											<li><a href="<?php echo $cfg_baseurl; ?>api_doc_atlantic.php"> <i class="fa fa-random icon"> <b class="bg-danger"></b> </i> <span>Dokumentasi API</span> </a></li>
+											<li><a href="<?php echo $cfg_baseurl; ?>myip_atlantic.php"> <i class="fa fa-server icon"> <b class="bg-danger"></b> </i> <span>You IP Address </span> </a></li>
+										
+                            <li class="panel">
+							<a href="#maps" data-toggle="collapse" data-parent="#sidebar-nav-menu" class="collapsed"><i class="fa fa-tags"></i> <span class="title">Daftar Harga</span> <i class="icon-submenu ti-angle-left"></i></a>
+							<div id="maps" class="collapse ">
+								<ul class="submenu">
+												<li><a href="<?php echo $cfg_baseurl; ?>list_sosmed_atl.php"><span>Sosial Media</span> </a></li>
+												<li><a href="<?php echo $cfg_baseurl; ?>list_pulsa_atl.php"><span>Pulsa / Game</span> </a></li>
+							            	    </ul>
+						                </div>
+					           	</li>
+							    <li><a href="<?php echo $cfg_baseurl; ?>main/ketentuan_atlantic.php"> <i class="fa fa-bolt icon"> <b class="bg-info"></b> </i> <span>Term & Service</span> </a></li>
+
+					<button type="button" class="btn-toggle-minified" title="Toggle Minified Menu"><i class="ti-arrows-horizontal"></i></button>
+				</nav>
+			</div>
+			<!-- END LEFT SIDEBAR -->
+			<!-- MAIN -->
+			<div class="main">
+				<!-- MAIN CONTENT -->
+				<div class="main-content">
+				    </br>
+				        </br>
+						    </ul>
+					            <div class="container-fluid">
